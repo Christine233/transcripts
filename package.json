@@ -1,0 +1,19 @@
+{
+  "name": "transcripts",
+  "version": "1.0.0",
+  "description": "transcripts",
+  "main": "transcripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christine233/transcripts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Christine233/transcripts/issues"
+  },
+  "homepage": "https://github.com/Christine233/transcripts#readme"
+}
