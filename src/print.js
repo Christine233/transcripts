@@ -1,65 +1,12 @@
-/**
- * Created by christine on 7/19/17.
- */
 const readlineSync = require('readline-sync');
-
-var stuInfoArr = [];
-function mainMenu() {
-    let main_list = '1. 添加学生\n2. 生成成绩单\n3. 退出\n请输入你的选择（1～3）：';
-    console.log(main_list);
-}
-mainMenu();
-
-readlineSync.promptCLLoop({
-    1:function () {
-       addStudent();
-    },
-    2:function () {
-       getTranscripts();
-    },
-    3:function () {
-        return true;
-    }
-});
-
-// case 1
-function addStudent() {
-    let stuInfoQ = `请输入学生信息（格式：姓名, 学号, 民族, 班级, 学科: 成绩, ...），按回车提交：\n`;
-    let stuInfo = readlineSync.question(stuInfoQ);
-    stuInfo = stuInfo.split(',');
-    let passed = stuInfo.every(ifIsNull);
-    function ifIsNull(element) {
-        return (element != '');
-    }
-    if(passed == true){
-        console.log(`学生${stuInfo[0]}的成绩被添加\n`);
-    }else{
-        console.log(`请按正确的格式输入（格式：姓名, 学号, 学科: 成绩, ...）：\n`);
-    }
-    stuInfoArr.push(stuInfo);
-}
-
-// case 2
-function getTranscripts() {
-    let transcriptsQ = `请输入要打印的学生的学号（格式： 学号, 学号,...），按回车提交：\n`;
-    let stuId = readlineSync.question(transcriptsQ);
-    stuId = stuId.split(',');
-    let passed = stuId.every(ifIsNull);
-    function ifIsNull(element) {
-        return (element != '');
-    }
-    if(passed == true){
-        console.log(printReceipt());
-    }else{
-        console.log(`请按正确的格式输入要打印的学生的学号（格式： 学号, 学号,...），按回车提交：\n`);
-    }
-}
+const trans = require('./transcripts.js');
+const diffCase = require('./case.js');
 
 // 打印成绩单
-function printReceipt() {
-    var list = `成绩单\n姓名|数学|语文|英语|编程|平均分|总分\n========================\n`;
-    var newAver = calcAver(stuInfoArr);
-    var newWhole = calcPerWhole(stuInfoArr);
+function printReceipt(stuInfoArr){
+    let list = `成绩单\n姓名|数学|语文|英语|编程|平均分|总分\n========================\n`;
+    let newAver = calcAver(stuInfoArr);
+    let newWhole = calcPerWhole(stuInfoArr);
     for(let i = 0; i < stuInfoArr.length; i++){
         list += `${stuInfoArr[i][0]}|${stuInfoArr[i][6]}|${stuInfoArr[i][4]}|${stuInfoArr[i][5]}|${stuInfoArr[i][7]}|${newAver[i]}|${newWhole[i]}\n`;
     }
@@ -124,3 +71,4 @@ function calcMedian(wholeScoreArr) {
     return median;
 }
 
+module.exports.printReceipt = printReceipt;
